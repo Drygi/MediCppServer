@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MediCppModelStoreContainer" CdmEntityContainer="MediCppEntities1">
+    <EntitySetMapping Name="Doctors">
+      <EntityTypeMapping TypeName="MediCppModel.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IllnessHistories">
+      <EntityTypeMapping TypeName="MediCppModel.IllnessHistory">
+        <MappingFragment StoreEntitySet="IllnessHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IllnessHistoryHasMedicines">
+      <EntityTypeMapping TypeName="MediCppModel.IllnessHistoryHasMedicine">
+        <MappingFragment StoreEntitySet="IllnessHistoryHasMedicines">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idIllnessHistory" ColumnName="idIllnessHistory" />
+          <ScalarProperty Name="idMedicine" ColumnName="idMedicine" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medicines">
+      <EntityTypeMapping TypeName="MediCppModel.Medicine">
+        <MappingFragment StoreEntitySet="Medicine">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pacients">
+      <EntityTypeMapping TypeName="MediCppModel.Pacient">
+        <MappingFragment StoreEntitySet="Pacient">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idDoctor" ColumnName="idDoctor" />
+          <ScalarProperty Name="PESEL" ColumnName="PESEL" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PacientHasIllnesHistories">
+      <EntityTypeMapping TypeName="MediCppModel.PacientHasIllnesHistory">
+        <MappingFragment StoreEntitySet="PacientHasIllnesHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idPacient" ColumnName="idPacient" />
+          <ScalarProperty Name="idIllenssHistory" ColumnName="idIllenssHistory" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
