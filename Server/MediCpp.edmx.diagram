@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8df8347d93094a14b65e0948b8e91d6b" Name="Diagram1">
+        <EntityTypeShape EntityType="MediCppModel.Doctor" Width="2.125" PointX="6.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.IllnessHistory" Width="2.375" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.IllnessHistoryHasMedicine" Width="2.125" PointX="0.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.Medicine" Width="2.375" PointX="3.375" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.Pacient" Width="2.125" PointX="6.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.PacientHasIllnesHistory" Width="2.125" PointX="3.625" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="MediCppModel.FK_Pacient_ToDoctor" ManuallyRouted="false" />
+        <AssociationConnector Association="MediCppModel.FK_IllnessHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="MediCppModel.FK_P_IllnessHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="MediCppModel.FK_Medicine" ManuallyRouted="false" />
+        <AssociationConnector Association="MediCppModel.FKP_Pacient" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
