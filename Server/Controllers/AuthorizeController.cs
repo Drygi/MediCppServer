@@ -13,13 +13,20 @@ namespace Server.Controllers
     {
         private MediCppEntities2 db = new MediCppEntities2();
 
+        //[HttpGet]
+        //public IHttpActionResult Authorize()
+        //{
+        //   var s = GlobalHelper.EncryptTextAES("Authorized", "123abc");
+
+        //    var z = GlobalHelper.DecryptTextAES(s, "123abc");
+        //    return Json(s+" "+z);
+        //}
         // POST: api/Authorize
         public IHttpActionResult Authorize(Authorize authorize)
         { 
-
-        var dec = GlobalHelper.DecryptRSA(authorize).Split('%');
+            var dec = GlobalHelper.DecryptRSA(authorize).Split('%');
             if (dec == null)
-                return Json(new Status { status = "notAuthorized" });
+                return NotFound();
             Doctor dr = new Doctor();
             dr.Name = dec[0];
             dr.LastName = dec[1];
@@ -28,19 +35,9 @@ namespace Server.Controllers
             var DFDB = (from d in db.Doctor where d.PESEL.ToString() == dr.PESEL select d).SingleOrDefault();
 
             if (DFDB != null && DFDB.CipherData.Trim() == authorize.cipherData.Trim())
-                return Json(new Status { status = "Authorized" });
+                return Json(GlobalHelper.EncryptTextAES("Authorized", "123abc"));
             else
-                return Json(new Status { status = "notAuthorized" });
-        }
-
-        // PUT: api/Authorize/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Authorize/5
-        public void Delete(int id)
-        {
+                return NotFound();
         }
     }
 }
