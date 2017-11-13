@@ -14,25 +14,25 @@ namespace Server.Controllers
 {
     public class PacientHasIllnesHistoriesController : ApiController
     {
-        private MediCppEntities1 db = new MediCppEntities1();
+        private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/PacientHasIllnesHistories
-        public IQueryable<PacientHasIllnesHistory> GetPacientHasIllnesHistories()
+        public IHttpActionResult GetPacientHasIllnesHistories()
         {
-            return db.PacientHasIllnesHistories;
+            return Json(db.PacientHasIllnesHistory.ToList());
         }
 
         // GET: api/PacientHasIllnesHistories/5
         [ResponseType(typeof(PacientHasIllnesHistory))]
         public IHttpActionResult GetPacientHasIllnesHistory(int id)
         {
-            PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistories.Find(id);
+            PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistory.Find(id);
             if (pacientHasIllnesHistory == null)
             {
                 return NotFound();
             }
 
-            return Ok(pacientHasIllnesHistory);
+            return Json(pacientHasIllnesHistory);
         }
 
         // PUT: api/PacientHasIllnesHistories/5
@@ -79,41 +79,65 @@ namespace Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.PacientHasIllnesHistories.Add(pacientHasIllnesHistory);
+            db.PacientHasIllnesHistory.Add(pacientHasIllnesHistory);
 
             try
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateException)
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
             {
-                if (PacientHasIllnesHistoryExists(pacientHasIllnesHistory.Id))
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
                 {
-                    return Conflict();
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
                 }
-                else
-                {
-                    throw;
-                }
+                throw raise;
             }
-
-            return CreatedAtRoute("DefaultApi", new { id = pacientHasIllnesHistory.Id }, pacientHasIllnesHistory);
+            return Ok();
         }
 
         // DELETE: api/PacientHasIllnesHistories/5
         [ResponseType(typeof(PacientHasIllnesHistory))]
         public IHttpActionResult DeletePacientHasIllnesHistory(int id)
         {
-            PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistories.Find(id);
+            PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistory.Find(id);
             if (pacientHasIllnesHistory == null)
             {
                 return NotFound();
             }
 
-            db.PacientHasIllnesHistories.Remove(pacientHasIllnesHistory);
-            db.SaveChanges();
-
-            return Ok(pacientHasIllnesHistory);
+            db.PacientHasIllnesHistory.Remove(pacientHasIllnesHistory);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -127,7 +151,7 @@ namespace Server.Controllers
 
         private bool PacientHasIllnesHistoryExists(int id)
         {
-            return db.PacientHasIllnesHistories.Count(e => e.Id == id) > 0;
+            return db.PacientHasIllnesHistory.Count(e => e.Id == id) > 0;
         }
     }
 }

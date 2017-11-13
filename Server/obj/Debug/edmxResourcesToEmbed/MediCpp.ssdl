@@ -8,6 +8,7 @@
     <Property Name="PESEL" Type="text" />
     <Property Name="Name" Type="text" Nullable="false" />
     <Property Name="LastName" Type="text" Nullable="false" />
+    <Property Name="CipherData" Type="text" Nullable="false" />
   </EntityType>
   <EntityType Name="IllnessHistory">
     <Key>

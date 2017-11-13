@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="MediCppModelStoreContainer" CdmEntityContainer="MediCppEntities1">
-    <EntitySetMapping Name="Doctors">
+  <EntityContainerMapping StorageEntityContainer="MediCppModelStoreContainer" CdmEntityContainer="MediCppEntities2">
+    <EntitySetMapping Name="Doctor">
       <EntityTypeMapping TypeName="MediCppModel.Doctor">
         <MappingFragment StoreEntitySet="Doctor">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="PESEL" ColumnName="PESEL" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="CipherData" ColumnName="CipherData" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="IllnessHistories">
+    <EntitySetMapping Name="IllnessHistory">
       <EntityTypeMapping TypeName="MediCppModel.IllnessHistory">
         <MappingFragment StoreEntitySet="IllnessHistory">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -22,7 +23,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="IllnessHistoryHasMedicines">
-      <EntityTypeMapping TypeName="MediCppModel.IllnessHistoryHasMedicine">
+      <EntityTypeMapping TypeName="MediCppModel.IllnessHistoryHasMedicines">
         <MappingFragment StoreEntitySet="IllnessHistoryHasMedicines">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="idIllnessHistory" ColumnName="idIllnessHistory" />
@@ -30,7 +31,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Medicines">
+    <EntitySetMapping Name="Medicine">
       <EntityTypeMapping TypeName="MediCppModel.Medicine">
         <MappingFragment StoreEntitySet="Medicine">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -38,7 +39,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pacients">
+    <EntitySetMapping Name="Pacient">
       <EntityTypeMapping TypeName="MediCppModel.Pacient">
         <MappingFragment StoreEntitySet="Pacient">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -49,7 +50,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PacientHasIllnesHistories">
+    <EntitySetMapping Name="PacientHasIllnesHistory">
       <EntityTypeMapping TypeName="MediCppModel.PacientHasIllnesHistory">
         <MappingFragment StoreEntitySet="PacientHasIllnesHistory">
           <ScalarProperty Name="Id" ColumnName="Id" />

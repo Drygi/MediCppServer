@@ -14,25 +14,25 @@ namespace Server.Controllers
 {
     public class IllnessHistoriesController : ApiController
     {
-        private MediCppEntities1 db = new MediCppEntities1();
+        private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/IllnessHistories
-        public IQueryable<IllnessHistory> GetIllnessHistories()
+        public IHttpActionResult GetIllnessHistories()
         {
-            return db.IllnessHistories;
+            return Json(db.IllnessHistory.ToList());
         }
 
         // GET: api/IllnessHistories/5
         [ResponseType(typeof(IllnessHistory))]
         public IHttpActionResult GetIllnessHistory(int id)
         {
-            IllnessHistory illnessHistory = db.IllnessHistories.Find(id);
+            IllnessHistory illnessHistory = db.IllnessHistory.Find(id);
             if (illnessHistory == null)
             {
                 return NotFound();
             }
 
-            return Ok(illnessHistory);
+            return Json(illnessHistory);
         }
 
         // PUT: api/IllnessHistories/5
@@ -79,26 +79,64 @@ namespace Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.IllnessHistories.Add(illnessHistory);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = illnessHistory.Id }, illnessHistory);
+            db.IllnessHistory.Add(illnessHistory);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+            return Ok();
         }
 
         // DELETE: api/IllnessHistories/5
         [ResponseType(typeof(IllnessHistory))]
         public IHttpActionResult DeleteIllnessHistory(int id)
         {
-            IllnessHistory illnessHistory = db.IllnessHistories.Find(id);
+            IllnessHistory illnessHistory = db.IllnessHistory.Find(id);
             if (illnessHistory == null)
             {
                 return NotFound();
             }
 
-            db.IllnessHistories.Remove(illnessHistory);
-            db.SaveChanges();
-
-            return Ok(illnessHistory);
+            db.IllnessHistory.Remove(illnessHistory);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -112,7 +150,7 @@ namespace Server.Controllers
 
         private bool IllnessHistoryExists(int id)
         {
-            return db.IllnessHistories.Count(e => e.Id == id) > 0;
+            return db.IllnessHistory.Count(e => e.Id == id) > 0;
         }
     }
 }

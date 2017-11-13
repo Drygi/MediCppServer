@@ -51,6 +51,7 @@ C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Server
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Server.dll
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Server.pdb
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Antlr3.Runtime.dll
+C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\BouncyCastle.Crypto.dll
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\EntityFramework.dll
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\EntityFramework.SqlServer.dll
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Microsoft.AI.Agent.Intercept.dll
@@ -94,6 +95,7 @@ C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Micros
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\bin\Microsoft.AI.Web.xml
+C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\obj\Debug\Server.dll
 C:\Users\mikol\Desktop\SEMESTR VII\OD - Ochrona Danych\MediCpp\Server\obj\Debug\Server.pdb

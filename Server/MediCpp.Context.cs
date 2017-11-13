@@ -13,10 +13,10 @@ namespace Server
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MediCppEntities1 : DbContext
+    public partial class MediCppEntities2 : DbContext
     {
-        public MediCppEntities1()
-            : base("name=MediCppEntities1")
+        public MediCppEntities2()
+            : base("name=MediCppEntities2")
         {
         }
     
@@ -25,11 +25,11 @@ namespace Server
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Doctor> Doctors { get; set; }
-        public virtual DbSet<IllnessHistory> IllnessHistories { get; set; }
-        public virtual DbSet<IllnessHistoryHasMedicine> IllnessHistoryHasMedicines { get; set; }
-        public virtual DbSet<Medicine> Medicines { get; set; }
-        public virtual DbSet<Pacient> Pacients { get; set; }
-        public virtual DbSet<PacientHasIllnesHistory> PacientHasIllnesHistories { get; set; }
+        public virtual DbSet<Doctor> Doctor { get; set; }
+        public virtual DbSet<IllnessHistory> IllnessHistory { get; set; }
+        public virtual DbSet<IllnessHistoryHasMedicines> IllnessHistoryHasMedicines { get; set; }
+        public virtual DbSet<Medicine> Medicine { get; set; }
+        public virtual DbSet<Pacient> Pacient { get; set; }
+        public virtual DbSet<PacientHasIllnesHistory> PacientHasIllnesHistory { get; set; }
     }
 }

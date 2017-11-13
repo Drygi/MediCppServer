@@ -17,7 +17,7 @@ namespace Server
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
-            this.Pacients = new HashSet<Pacient>();
+            this.Pacient = new HashSet<Pacient>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace Server
         public string CipherData { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pacient> Pacients { get; set; }
+        public virtual ICollection<Pacient> Pacient { get; set; }
     }
 }

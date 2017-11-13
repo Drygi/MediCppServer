@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MediCppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MediCppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="Id" />
@@ -145,7 +145,8 @@
             <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MediCppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -157,8 +158,8 @@
           <Property Name="PESEL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Pacients" Relationship="Self.FK_Pacient_ToDoctor" FromRole="Doctor" ToRole="Pacient" />
-          <Property Name="CipherData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CipherData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pacient" Relationship="Self.FK_Pacient_ToDoctor" FromRole="Doctor" ToRole="Pacient" />
         </EntityType>
         <EntityType Name="IllnessHistory">
           <Key>
@@ -169,9 +170,9 @@
           <Property Name="BeginDate" Type="Time" Nullable="false" Precision="7" />
           <Property Name="EndDate" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="IllnessHistoryHasMedicines" Relationship="Self.FK_IllnessHistory" FromRole="IllnessHistory" ToRole="IllnessHistoryHasMedicines" />
-          <NavigationProperty Name="PacientHasIllnesHistories" Relationship="Self.FK_P_IllnessHistory" FromRole="IllnessHistory" ToRole="PacientHasIllnesHistory" />
+          <NavigationProperty Name="PacientHasIllnesHistory" Relationship="Self.FK_P_IllnessHistory" FromRole="IllnessHistory" ToRole="PacientHasIllnesHistory" />
         </EntityType>
-        <EntityType Name="IllnessHistoryHasMedicine">
+        <EntityType Name="IllnessHistoryHasMedicines">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -199,7 +200,7 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Doctor" Relationship="Self.FK_Pacient_ToDoctor" FromRole="Pacient" ToRole="Doctor" />
-          <NavigationProperty Name="PacientHasIllnesHistories" Relationship="Self.FKP_Pacient" FromRole="Pacient" ToRole="PacientHasIllnesHistory" />
+          <NavigationProperty Name="PacientHasIllnesHistory" Relationship="Self.FKP_Pacient" FromRole="Pacient" ToRole="PacientHasIllnesHistory" />
         </EntityType>
         <EntityType Name="PacientHasIllnesHistory">
           <Key>
@@ -225,7 +226,7 @@
         </Association>
         <Association Name="FK_IllnessHistory">
           <End Role="IllnessHistory" Type="Self.IllnessHistory" Multiplicity="1" />
-          <End Role="IllnessHistoryHasMedicines" Type="Self.IllnessHistoryHasMedicine" Multiplicity="*" />
+          <End Role="IllnessHistoryHasMedicines" Type="Self.IllnessHistoryHasMedicines" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="IllnessHistory">
               <PropertyRef Name="Id" />
@@ -249,7 +250,7 @@
         </Association>
         <Association Name="FK_Medicine">
           <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
-          <End Role="IllnessHistoryHasMedicines" Type="Self.IllnessHistoryHasMedicine" Multiplicity="*" />
+          <End Role="IllnessHistoryHasMedicines" Type="Self.IllnessHistoryHasMedicines" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medicine">
               <PropertyRef Name="Id" />
@@ -271,32 +272,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MediCppEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
-          <EntitySet Name="IllnessHistories" EntityType="Self.IllnessHistory" />
-          <EntitySet Name="IllnessHistoryHasMedicines" EntityType="Self.IllnessHistoryHasMedicine" />
-          <EntitySet Name="Medicines" EntityType="Self.Medicine" />
-          <EntitySet Name="Pacients" EntityType="Self.Pacient" />
-          <EntitySet Name="PacientHasIllnesHistories" EntityType="Self.PacientHasIllnesHistory" />
+        <EntityContainer Name="MediCppEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+          <EntitySet Name="IllnessHistory" EntityType="Self.IllnessHistory" />
+          <EntitySet Name="IllnessHistoryHasMedicines" EntityType="Self.IllnessHistoryHasMedicines" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" />
+          <EntitySet Name="Pacient" EntityType="Self.Pacient" />
+          <EntitySet Name="PacientHasIllnesHistory" EntityType="Self.PacientHasIllnesHistory" />
           <AssociationSet Name="FK_Pacient_ToDoctor" Association="Self.FK_Pacient_ToDoctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="Pacient" EntitySet="Pacients" />
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Pacient" EntitySet="Pacient" />
           </AssociationSet>
           <AssociationSet Name="FK_IllnessHistory" Association="Self.FK_IllnessHistory">
-            <End Role="IllnessHistory" EntitySet="IllnessHistories" />
+            <End Role="IllnessHistory" EntitySet="IllnessHistory" />
             <End Role="IllnessHistoryHasMedicines" EntitySet="IllnessHistoryHasMedicines" />
           </AssociationSet>
           <AssociationSet Name="FK_P_IllnessHistory" Association="Self.FK_P_IllnessHistory">
-            <End Role="IllnessHistory" EntitySet="IllnessHistories" />
-            <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistories" />
+            <End Role="IllnessHistory" EntitySet="IllnessHistory" />
+            <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_Medicine" Association="Self.FK_Medicine">
-            <End Role="Medicine" EntitySet="Medicines" />
+            <End Role="Medicine" EntitySet="Medicine" />
             <End Role="IllnessHistoryHasMedicines" EntitySet="IllnessHistoryHasMedicines" />
           </AssociationSet>
           <AssociationSet Name="FKP_Pacient" Association="Self.FKP_Pacient">
-            <End Role="Pacient" EntitySet="Pacients" />
-            <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistories" />
+            <End Role="Pacient" EntitySet="Pacient" />
+            <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistory" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -304,19 +305,19 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MediCppModelStoreContainer" CdmEntityContainer="MediCppEntities1">
-          <EntitySetMapping Name="Doctors">
+        <EntityContainerMapping StorageEntityContainer="MediCppModelStoreContainer" CdmEntityContainer="MediCppEntities2">
+          <EntitySetMapping Name="Doctor">
             <EntityTypeMapping TypeName="MediCppModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
-                <ScalarProperty Name="CipherData" ColumnName="CipherData" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PESEL" ColumnName="PESEL" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CipherData" ColumnName="CipherData" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IllnessHistories">
+          <EntitySetMapping Name="IllnessHistory">
             <EntityTypeMapping TypeName="MediCppModel.IllnessHistory">
               <MappingFragment StoreEntitySet="IllnessHistory">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -327,7 +328,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="IllnessHistoryHasMedicines">
-            <EntityTypeMapping TypeName="MediCppModel.IllnessHistoryHasMedicine">
+            <EntityTypeMapping TypeName="MediCppModel.IllnessHistoryHasMedicines">
               <MappingFragment StoreEntitySet="IllnessHistoryHasMedicines">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="idIllnessHistory" ColumnName="idIllnessHistory" />
@@ -335,7 +336,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Medicines">
+          <EntitySetMapping Name="Medicine">
             <EntityTypeMapping TypeName="MediCppModel.Medicine">
               <MappingFragment StoreEntitySet="Medicine">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -343,7 +344,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pacients">
+          <EntitySetMapping Name="Pacient">
             <EntityTypeMapping TypeName="MediCppModel.Pacient">
               <MappingFragment StoreEntitySet="Pacient">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -354,7 +355,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PacientHasIllnesHistories">
+          <EntitySetMapping Name="PacientHasIllnesHistory">
             <EntityTypeMapping TypeName="MediCppModel.PacientHasIllnesHistory">
               <MappingFragment StoreEntitySet="PacientHasIllnesHistory">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -377,7 +378,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -12,7 +12,7 @@ namespace Server
     using System;
     using System.Collections.Generic;
     
-    public partial class IllnessHistoryHasMedicine
+    public partial class IllnessHistoryHasMedicines
     {
         public int Id { get; set; }
         public int idIllnessHistory { get; set; }

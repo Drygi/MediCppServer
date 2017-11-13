@@ -14,25 +14,25 @@ namespace Server.Controllers
 {
     public class MedicinesController : ApiController
     {
-        private MediCppEntities1 db = new MediCppEntities1();
+        private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/Medicines
-        public IQueryable<Medicine> GetMedicines()
+        public IHttpActionResult GetMedicines()
         {
-            return db.Medicines;
+            return Json(db.Medicine.ToList());
         }
 
         // GET: api/Medicines/5
         [ResponseType(typeof(Medicine))]
         public IHttpActionResult GetMedicine(int id)
         {
-            Medicine medicine = db.Medicines.Find(id);
+            Medicine medicine = db.Medicine.Find(id);
             if (medicine == null)
             {
                 return NotFound();
             }
 
-            return Ok(medicine);
+            return Json(medicine);
         }
 
         // PUT: api/Medicines/5
@@ -79,26 +79,64 @@ namespace Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Medicines.Add(medicine);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = medicine.Id }, medicine);
+            db.Medicine.Add(medicine);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+            return Ok();
         }
 
         // DELETE: api/Medicines/5
         [ResponseType(typeof(Medicine))]
         public IHttpActionResult DeleteMedicine(int id)
         {
-            Medicine medicine = db.Medicines.Find(id);
+            Medicine medicine = db.Medicine.Find(id);
             if (medicine == null)
             {
                 return NotFound();
             }
 
-            db.Medicines.Remove(medicine);
-            db.SaveChanges();
-
-            return Ok(medicine);
+            db.Medicine.Remove(medicine);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -112,7 +150,7 @@ namespace Server.Controllers
 
         private bool MedicineExists(int id)
         {
-            return db.Medicines.Count(e => e.Id == id) > 0;
+            return db.Medicine.Count(e => e.Id == id) > 0;
         }
     }
 }
