@@ -55,7 +55,7 @@
         <MappingFragment StoreEntitySet="PacientHasIllnesHistory">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="idPacient" ColumnName="idPacient" />
-          <ScalarProperty Name="idIllenssHistory" ColumnName="idIllenssHistory" />
+          <ScalarProperty Name="idIllnessHistory" ColumnName="idIllenssHistory" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

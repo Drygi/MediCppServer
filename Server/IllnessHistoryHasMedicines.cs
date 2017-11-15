@@ -9,6 +9,7 @@
 
 namespace Server
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,7 +18,6 @@ namespace Server
         public int Id { get; set; }
         public int idIllnessHistory { get; set; }
         public int idMedicine { get; set; }
-    
         public virtual IllnessHistory IllnessHistory { get; set; }
         public virtual Medicine Medicine { get; set; }
     }

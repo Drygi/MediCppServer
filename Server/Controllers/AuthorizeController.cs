@@ -22,6 +22,7 @@ namespace Server.Controllers
         //    return Json(s+" "+z);
         //}
         // POST: api/Authorize
+        [HttpPost]
         public IHttpActionResult Authorize(Authorize authorize)
         { 
             var dec = GlobalHelper.DecryptRSA(authorize).Split('%');

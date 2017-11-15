@@ -5,19 +5,19 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PESEL" Type="text" />
-    <Property Name="Name" Type="text" Nullable="false" />
-    <Property Name="LastName" Type="text" Nullable="false" />
-    <Property Name="CipherData" Type="text" Nullable="false" />
+    <Property Name="PESEL" Type="varchar(max)" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+    <Property Name="CipherData" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="IllnessHistory">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="text" Nullable="false" />
-    <Property Name="BeginDate" Type="time" Precision="7" Nullable="false" />
-    <Property Name="EndDate" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="BeginDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="IllnessHistoryHasMedicines">
     <Key>
@@ -32,7 +32,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Pacient">
     <Key>
@@ -40,9 +40,9 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idDoctor" Type="int" Nullable="false" />
-    <Property Name="PESEL" Type="text" Nullable="false" />
-    <Property Name="Name" Type="text" Nullable="false" />
-    <Property Name="LastName" Type="text" Nullable="false" />
+    <Property Name="PESEL" Type="varchar(max)" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="PacientHasIllnesHistory">
     <Key>

@@ -17,13 +17,14 @@ namespace Server.Controllers
         private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/PacientHasIllnesHistories
+        [HttpGet]
         public IHttpActionResult GetPacientHasIllnesHistories()
         {
             return Json(db.PacientHasIllnesHistory.ToList());
         }
 
         // GET: api/PacientHasIllnesHistories/5
-        [ResponseType(typeof(PacientHasIllnesHistory))]
+        [ResponseType(typeof(PacientHasIllnesHistory)),HttpGet]
         public IHttpActionResult GetPacientHasIllnesHistory(int id)
         {
             PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistory.Find(id);
@@ -36,7 +37,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/PacientHasIllnesHistories/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(void)),HttpPut]
         public IHttpActionResult PutPacientHasIllnesHistory(int id, PacientHasIllnesHistory pacientHasIllnesHistory)
         {
             if (!ModelState.IsValid)
@@ -71,13 +72,20 @@ namespace Server.Controllers
         }
 
         // POST: api/PacientHasIllnesHistories
-        [ResponseType(typeof(PacientHasIllnesHistory))]
+        [ResponseType(typeof(PacientHasIllnesHistory)),HttpPost]
         public IHttpActionResult PostPacientHasIllnesHistory(PacientHasIllnesHistory pacientHasIllnesHistory)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            pacientHasIllnesHistory = new PacientHasIllnesHistory();
+
+            pacientHasIllnesHistory.idIllnessHistory = 1;
+            pacientHasIllnesHistory.idPacient = 1;
+
+            pacientHasIllnesHistory.Pacient = db.Pacient.Find(pacientHasIllnesHistory.idPacient);
+            pacientHasIllnesHistory.IllnessHistory = db.IllnessHistory.Find(pacientHasIllnesHistory.idIllnessHistory);
 
             db.PacientHasIllnesHistory.Add(pacientHasIllnesHistory);
 
@@ -106,7 +114,7 @@ namespace Server.Controllers
         }
 
         // DELETE: api/PacientHasIllnesHistories/5
-        [ResponseType(typeof(PacientHasIllnesHistory))]
+        [ResponseType(typeof(PacientHasIllnesHistory)), HttpDelete]
         public IHttpActionResult DeletePacientHasIllnesHistory(int id)
         {
             PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistory.Find(id);

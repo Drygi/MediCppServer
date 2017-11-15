@@ -17,26 +17,33 @@ namespace Server.Controllers
         private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/Pacients
+        [HttpGet]
         public IHttpActionResult GetPacients()
         {
             return Json(db.Pacient.ToList());
         }
 
         // GET: api/Pacients/5
-        [ResponseType(typeof(Pacient))]
+        [ResponseType(typeof(Pacient)),HttpGet]
         public IHttpActionResult GetPacient(int id)
         {
-            Pacient pacient = db.Pacient.Find(id);
-            if (pacient == null)
-            {
-                return NotFound();
-            }
+            //Pacient pacient = db.Pacient.Find(id);
+            //if (pacient == null)
+            //{
+            //    return NotFound();
+            //}
+            Pacient pacient = new Pacient();
+            //pacient.Id = null;
+            pacient.idDoctor = 1;
+            pacient.Name = "Patryk";
+            pacient.LastName = "Dzwoniarski";
+            pacient.PESEL = "95050384384";
 
             return Json(pacient);
         }
 
         // PUT: api/Pacients/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(void)),HttpPut]
         public IHttpActionResult PutPacient(int id, Pacient pacient)
         {
             if (!ModelState.IsValid)
@@ -71,7 +78,7 @@ namespace Server.Controllers
         }
 
         // POST: api/Pacients
-        [ResponseType(typeof(Pacient))]
+        [ResponseType(typeof(Pacient)),HttpPost]
         public IHttpActionResult PostPacient(Pacient pacient)
         {
             if (!ModelState.IsValid)
@@ -105,7 +112,7 @@ namespace Server.Controllers
         }
 
         // DELETE: api/Pacients/5
-        [ResponseType(typeof(Pacient))]
+        [ResponseType(typeof(Pacient)),HttpDelete]
         public IHttpActionResult DeletePacient(int id)
         {
             Pacient pacient = db.Pacient.Find(id);

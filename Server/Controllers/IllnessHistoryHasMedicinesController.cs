@@ -17,13 +17,14 @@ namespace Server.Controllers
         private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/IllnessHistoryHasMedicines
+        [HttpGet]
         public IHttpActionResult GetIllnessHistoryHasMedicines()
         {
             return Json(db.IllnessHistoryHasMedicines.ToList());
         }
 
         // GET: api/IllnessHistoryHasMedicines/5
-        [ResponseType(typeof(IllnessHistoryHasMedicines))]
+        [ResponseType(typeof(IllnessHistoryHasMedicines)),HttpGet]
         public IHttpActionResult GetIllnessHistoryHasMedicine(int id)
         {
             IllnessHistoryHasMedicines illnessHistoryHasMedicine = db.IllnessHistoryHasMedicines.Find(id);
@@ -36,7 +37,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/IllnessHistoryHasMedicines/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(void)),HttpPut]
         public IHttpActionResult PutIllnessHistoryHasMedicine(int id, IllnessHistoryHasMedicines illnessHistoryHasMedicine)
         {
             if (!ModelState.IsValid)
@@ -71,15 +72,16 @@ namespace Server.Controllers
         }
 
         // POST: api/IllnessHistoryHasMedicines
-        [ResponseType(typeof(IllnessHistoryHasMedicines))]
+        [ResponseType(typeof(IllnessHistoryHasMedicines)),HttpPost]
         public IHttpActionResult PostIllnessHistoryHasMedicine(IllnessHistoryHasMedicines illnessHistoryHasMedicine)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+    
             db.IllnessHistoryHasMedicines.Add(illnessHistoryHasMedicine);
+
 
             try
             {
@@ -106,7 +108,7 @@ namespace Server.Controllers
         }
 
         // DELETE: api/IllnessHistoryHasMedicines/5
-        [ResponseType(typeof(IllnessHistoryHasMedicines))]
+        [ResponseType(typeof(IllnessHistoryHasMedicines)),HttpDelete]
         public IHttpActionResult DeleteIllnessHistoryHasMedicine(int id)
         {
             IllnessHistoryHasMedicines illnessHistoryHasMedicine = db.IllnessHistoryHasMedicines.Find(id);

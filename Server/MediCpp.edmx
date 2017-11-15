@@ -4,25 +4,25 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MediCppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MediCppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PESEL" Type="text" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="LastName" Type="text" Nullable="false" />
-          <Property Name="CipherData" Type="text" Nullable="false" />
+          <Property Name="PESEL" Type="varchar(max)" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+          <Property Name="CipherData" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="IllnessHistory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="BeginDate" Type="time" Precision="7" Nullable="false" />
-          <Property Name="EndDate" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="BeginDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="IllnessHistoryHasMedicines">
           <Key>
@@ -37,7 +37,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Pacient">
           <Key>
@@ -45,9 +45,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idDoctor" Type="int" Nullable="false" />
-          <Property Name="PESEL" Type="text" Nullable="false" />
-          <Property Name="Name" Type="text" Nullable="false" />
-          <Property Name="LastName" Type="text" Nullable="false" />
+          <Property Name="PESEL" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="PacientHasIllnesHistory">
           <Key>
@@ -145,8 +145,7 @@
             <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MediCppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -167,8 +166,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BeginDate" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="EndDate" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="IllnessHistoryHasMedicines" Relationship="Self.FK_IllnessHistory" FromRole="IllnessHistory" ToRole="IllnessHistoryHasMedicines" />
           <NavigationProperty Name="PacientHasIllnesHistory" Relationship="Self.FK_P_IllnessHistory" FromRole="IllnessHistory" ToRole="PacientHasIllnesHistory" />
         </EntityType>
@@ -208,7 +207,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="idPacient" Type="Int32" Nullable="false" />
-          <Property Name="idIllenssHistory" Type="Int32" Nullable="false" />
+          <Property Name="idIllnessHistory" Type="Int32" Nullable="false" />
           <NavigationProperty Name="IllnessHistory" Relationship="Self.FK_P_IllnessHistory" FromRole="PacientHasIllnesHistory" ToRole="IllnessHistory" />
           <NavigationProperty Name="Pacient" Relationship="Self.FKP_Pacient" FromRole="PacientHasIllnesHistory" ToRole="Pacient" />
         </EntityType>
@@ -244,7 +243,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PacientHasIllnesHistory">
-              <PropertyRef Name="idIllenssHistory" />
+              <PropertyRef Name="idIllnessHistory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -360,7 +359,7 @@
               <MappingFragment StoreEntitySet="PacientHasIllnesHistory">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="idPacient" ColumnName="idPacient" />
-                <ScalarProperty Name="idIllenssHistory" ColumnName="idIllenssHistory" />
+                <ScalarProperty Name="idIllnessHistory" ColumnName="idIllenssHistory" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

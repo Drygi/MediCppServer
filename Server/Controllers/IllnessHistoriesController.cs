@@ -17,13 +17,14 @@ namespace Server.Controllers
         private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/IllnessHistories
+        [HttpGet]
         public IHttpActionResult GetIllnessHistories()
         {
             return Json(db.IllnessHistory.ToList());
         }
 
         // GET: api/IllnessHistories/5
-        [ResponseType(typeof(IllnessHistory))]
+        [ResponseType(typeof(IllnessHistory)),HttpGet]
         public IHttpActionResult GetIllnessHistory(int id)
         {
             IllnessHistory illnessHistory = db.IllnessHistory.Find(id);
@@ -36,7 +37,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/IllnessHistories/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(void)),HttpPut]
         public IHttpActionResult PutIllnessHistory(int id, IllnessHistory illnessHistory)
         {
             if (!ModelState.IsValid)
@@ -71,9 +72,10 @@ namespace Server.Controllers
         }
 
         // POST: api/IllnessHistories
-        [ResponseType(typeof(IllnessHistory))]
+        [ResponseType(typeof(IllnessHistory)),HttpPost]
         public IHttpActionResult PostIllnessHistory(IllnessHistory illnessHistory)
         {
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -105,7 +107,7 @@ namespace Server.Controllers
         }
 
         // DELETE: api/IllnessHistories/5
-        [ResponseType(typeof(IllnessHistory))]
+        [ResponseType(typeof(IllnessHistory)),HttpDelete]
         public IHttpActionResult DeleteIllnessHistory(int id)
         {
             IllnessHistory illnessHistory = db.IllnessHistory.Find(id);

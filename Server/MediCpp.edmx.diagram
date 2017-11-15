@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9bafdaf059d749efbc0379825487f175" Name="Diagram1">
-        <EntityTypeShape EntityType="MediCppModel.Doctor" Width="1.5" PointX="1.5" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediCppModel.IllnessHistory" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediCppModel.IllnessHistoryHasMedicines" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediCppModel.Medicine" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediCppModel.Pacient" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediCppModel.PacientHasIllnesHistory" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="9bafdaf059d749efbc0379825487f175" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="MediCppModel.Doctor" Width="1.5" PointX="4" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.IllnessHistory" Width="1.5" PointX="4.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.IllnessHistoryHasMedicines" Width="1.5" PointX="7.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.Medicine" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.Pacient" Width="1.5" PointX="0.875" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediCppModel.PacientHasIllnesHistory" Width="1.5" PointX="1.375" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="MediCppModel.FK_Pacient_ToDoctor" ManuallyRouted="false" />
         <AssociationConnector Association="MediCppModel.FK_IllnessHistory" ManuallyRouted="false" />
         <AssociationConnector Association="MediCppModel.FK_P_IllnessHistory" ManuallyRouted="false" />

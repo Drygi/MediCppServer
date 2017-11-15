@@ -9,6 +9,7 @@
 
 namespace Server
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -25,9 +26,9 @@ namespace Server
         public string PESEL { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-    
         public virtual Doctor Doctor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<PacientHasIllnesHistory> PacientHasIllnesHistory { get; set; }
     }
 }

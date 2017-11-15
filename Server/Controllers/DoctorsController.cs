@@ -17,6 +17,7 @@ namespace Server.Controllers
         private MediCppEntities2 db = new MediCppEntities2();
 
         // GET: api/Doctors
+        [HttpGet]
         public IHttpActionResult GetDoctors()
         {
             if (db.Doctor.Count() < 1)
@@ -26,7 +27,7 @@ namespace Server.Controllers
         }
 
         // GET: api/Doctors/5
-        [ResponseType(typeof(Doctor))]
+        [ResponseType(typeof(Doctor)),HttpGet]
         public IHttpActionResult GetDoctor(int id)
         {
             Doctor doctor = db.Doctor.Find(id);
@@ -39,7 +40,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/Doctors/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(void)),HttpPut]
         public IHttpActionResult PutDoctor(int id, Doctor doctor)
         {
             if (!ModelState.IsValid)
@@ -74,7 +75,7 @@ namespace Server.Controllers
         }
 
         // POST: api/Doctors
-        [ResponseType(typeof(Doctor))]
+        [ResponseType(typeof(Doctor)),HttpPost]
         public IHttpActionResult PostDoctor(Doctor doctor)
         {
             if (!ModelState.IsValid)
@@ -109,7 +110,7 @@ namespace Server.Controllers
         }
 
         // DELETE: api/Doctors/5
-        [ResponseType(typeof(Doctor))]
+        [ResponseType(typeof(Doctor)),HttpDelete]
         public IHttpActionResult DeleteDoctor(int id)
         {
             Doctor doctor = db.Doctor.Find(id);
