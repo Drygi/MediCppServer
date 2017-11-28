@@ -14,36 +14,35 @@ namespace Server.Controllers
 {
     public class PacientsController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         // GET: api/Pacients
         [HttpGet]
         public IHttpActionResult GetPacients()
         {
-            return Json(db.Pacient.ToList());
+            var lists = db.Pacient.ToList();
+
+            if (lists.Count > 0)
+                return Json(lists);
+            else
+                return Json("Empty database");
         }
 
+
         // GET: api/Pacients/5
-        [ResponseType(typeof(Pacient)),HttpGet]
+        [ResponseType(typeof(Pacient)), HttpGet]
         public IHttpActionResult GetPacient(int id)
         {
-            //Pacient pacient = db.Pacient.Find(id);
-            //if (pacient == null)
-            //{
-            //    return NotFound();
-            //}
-            Pacient pacient = new Pacient();
-            //pacient.Id = null;
-            pacient.idDoctor = 1;
-            pacient.Name = "Patryk";
-            pacient.LastName = "Dzwoniarski";
-            pacient.PESEL = "95050384384";
+            Doctor doctor = db.Doctor.Find(id);
+            var pacients = doctor.Pacient.ToList();
+            if (pacients == null)
+                return Json("Empty database");
 
-            return Json(pacient);
+            return Json(pacients);
         }
 
         // PUT: api/Pacients/5
-        [ResponseType(typeof(void)),HttpPut]
+        [ResponseType(typeof(void)), HttpPut]
         public IHttpActionResult PutPacient(int id, Pacient pacient)
         {
             if (!ModelState.IsValid)
@@ -78,7 +77,7 @@ namespace Server.Controllers
         }
 
         // POST: api/Pacients
-        [ResponseType(typeof(Pacient)),HttpPost]
+        [ResponseType(typeof(Pacient)), HttpPost]
         public IHttpActionResult PostPacient(Pacient pacient)
         {
             if (!ModelState.IsValid)
@@ -108,11 +107,11 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         // DELETE: api/Pacients/5
-        [ResponseType(typeof(Pacient)),HttpDelete]
+        [ResponseType(typeof(Pacient)), HttpDelete]
         public IHttpActionResult DeletePacient(int id)
         {
             Pacient pacient = db.Pacient.Find(id);
@@ -143,7 +142,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         protected override void Dispose(bool disposing)

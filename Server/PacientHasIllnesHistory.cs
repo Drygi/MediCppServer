@@ -17,8 +17,10 @@ namespace Server
     {
         public int Id { get; set; }
         public int idPacient { get; set; }
-        public int idIllnessHistory { get; set; }
+        public int idIllenssHistory { get; set; }
+        public System.DateTime VisitDate { get; set; }
         public virtual IllnessHistory IllnessHistory { get; set; }
+        [JsonIgnore]
         public virtual Pacient Pacient { get; set; }
     }
 }

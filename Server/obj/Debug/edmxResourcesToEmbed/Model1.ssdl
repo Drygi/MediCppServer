@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MediCppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PESEL" Type="varchar(max)" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+    <Property Name="CipherData" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IllnessHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IllnessHistoryHasMedicines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idIllnessHistory" Type="int" Nullable="false" />
+    <Property Name="idMedicine" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicine">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pacient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idDoctor" Type="int" Nullable="false" />
+    <Property Name="PESEL" Type="varchar(max)" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PacientHasIllnesHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idPacient" Type="int" Nullable="false" />
+    <Property Name="idIllenssHistory" Type="int" Nullable="false" />
+    <Property Name="VisitDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_IllnessHistory">
+    <End Role="IllnessHistory" Type="Self.IllnessHistory" Multiplicity="1" />
+    <End Role="IllnessHistoryHasMedicines" Type="Self.IllnessHistoryHasMedicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IllnessHistory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IllnessHistoryHasMedicines">
+        <PropertyRef Name="idIllnessHistory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Medicine">
+    <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
+    <End Role="IllnessHistoryHasMedicines" Type="Self.IllnessHistoryHasMedicines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicine">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IllnessHistoryHasMedicines">
+        <PropertyRef Name="idMedicine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_P_IllnessHistory">
+    <End Role="IllnessHistory" Type="Self.IllnessHistory" Multiplicity="1" />
+    <End Role="PacientHasIllnesHistory" Type="Self.PacientHasIllnesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IllnessHistory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PacientHasIllnesHistory">
+        <PropertyRef Name="idIllenssHistory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pacient_ToDoctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Pacient" Type="Self.Pacient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pacient">
+        <PropertyRef Name="idDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FKP_Pacient">
+    <End Role="Pacient" Type="Self.Pacient" Multiplicity="1" />
+    <End Role="PacientHasIllnesHistory" Type="Self.PacientHasIllnesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PacientHasIllnesHistory">
+        <PropertyRef Name="idPacient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MediCppModelStoreContainer">
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IllnessHistory" EntityType="Self.IllnessHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IllnessHistoryHasMedicines" EntityType="Self.IllnessHistoryHasMedicines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pacient" EntityType="Self.Pacient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PacientHasIllnesHistory" EntityType="Self.PacientHasIllnesHistory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_IllnessHistory" Association="Self.FK_IllnessHistory">
+      <End Role="IllnessHistory" EntitySet="IllnessHistory" />
+      <End Role="IllnessHistoryHasMedicines" EntitySet="IllnessHistoryHasMedicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Medicine" Association="Self.FK_Medicine">
+      <End Role="Medicine" EntitySet="Medicine" />
+      <End Role="IllnessHistoryHasMedicines" EntitySet="IllnessHistoryHasMedicines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_P_IllnessHistory" Association="Self.FK_P_IllnessHistory">
+      <End Role="IllnessHistory" EntitySet="IllnessHistory" />
+      <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pacient_ToDoctor" Association="Self.FK_Pacient_ToDoctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Pacient" EntitySet="Pacient" />
+    </AssociationSet>
+    <AssociationSet Name="FKP_Pacient" Association="Self.FKP_Pacient">
+      <End Role="Pacient" EntitySet="Pacient" />
+      <End Role="PacientHasIllnesHistory" EntitySet="PacientHasIllnesHistory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

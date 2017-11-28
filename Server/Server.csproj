@@ -227,6 +227,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MediCpp.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyAES.cs" />
     <Compile Include="Models\Authorize.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Pacient.cs">
@@ -345,7 +346,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50187</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50187/</IISUrl>
+          <IISUrl>http://192.168.0.101:50187/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://192.168.0.101:50187/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

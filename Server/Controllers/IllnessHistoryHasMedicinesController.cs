@@ -14,17 +14,22 @@ namespace Server.Controllers
 {
     public class IllnessHistoryHasMedicinesController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         // GET: api/IllnessHistoryHasMedicines
         [HttpGet]
         public IHttpActionResult GetIllnessHistoryHasMedicines()
         {
-            return Json(db.IllnessHistoryHasMedicines.ToList());
+            var lists = db.IllnessHistoryHasMedicines.ToList();
+
+            if (lists.Count > 0)
+                return Json(lists);
+            else
+                return Json("Empty database");
         }
 
         // GET: api/IllnessHistoryHasMedicines/5
-        [ResponseType(typeof(IllnessHistoryHasMedicines)),HttpGet]
+        [ResponseType(typeof(IllnessHistoryHasMedicines)), HttpGet]
         public IHttpActionResult GetIllnessHistoryHasMedicine(int id)
         {
             IllnessHistoryHasMedicines illnessHistoryHasMedicine = db.IllnessHistoryHasMedicines.Find(id);
@@ -37,7 +42,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/IllnessHistoryHasMedicines/5
-        [ResponseType(typeof(void)),HttpPut]
+        [ResponseType(typeof(void)), HttpPut]
         public IHttpActionResult PutIllnessHistoryHasMedicine(int id, IllnessHistoryHasMedicines illnessHistoryHasMedicine)
         {
             if (!ModelState.IsValid)
@@ -72,14 +77,14 @@ namespace Server.Controllers
         }
 
         // POST: api/IllnessHistoryHasMedicines
-        [ResponseType(typeof(IllnessHistoryHasMedicines)),HttpPost]
+        [ResponseType(typeof(IllnessHistoryHasMedicines)), HttpPost]
         public IHttpActionResult PostIllnessHistoryHasMedicine(IllnessHistoryHasMedicines illnessHistoryHasMedicine)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-    
+
             db.IllnessHistoryHasMedicines.Add(illnessHistoryHasMedicine);
 
 
@@ -104,11 +109,11 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         // DELETE: api/IllnessHistoryHasMedicines/5
-        [ResponseType(typeof(IllnessHistoryHasMedicines)),HttpDelete]
+        [ResponseType(typeof(IllnessHistoryHasMedicines)), HttpDelete]
         public IHttpActionResult DeleteIllnessHistoryHasMedicine(int id)
         {
             IllnessHistoryHasMedicines illnessHistoryHasMedicine = db.IllnessHistoryHasMedicines.Find(id);
@@ -139,7 +144,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         protected override void Dispose(bool disposing)

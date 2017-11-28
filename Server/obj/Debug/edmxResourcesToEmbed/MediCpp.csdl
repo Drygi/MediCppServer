@@ -17,8 +17,6 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="IllnessHistoryHasMedicines" Relationship="Self.FK_IllnessHistory" FromRole="IllnessHistory" ToRole="IllnessHistoryHasMedicines" />
     <NavigationProperty Name="PacientHasIllnesHistory" Relationship="Self.FK_P_IllnessHistory" FromRole="IllnessHistory" ToRole="PacientHasIllnesHistory" />
   </EntityType>
@@ -26,7 +24,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="idIllnessHistory" Type="Int32" Nullable="false" />
     <Property Name="idMedicine" Type="Int32" Nullable="false" />
     <NavigationProperty Name="IllnessHistory" Relationship="Self.FK_IllnessHistory" FromRole="IllnessHistoryHasMedicines" ToRole="IllnessHistory" />
@@ -56,9 +54,10 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="idPacient" Type="Int32" Nullable="false" />
-    <Property Name="idIllnessHistory" Type="Int32" Nullable="false" />
+    <Property Name="idIllenssHistory" Type="Int32" Nullable="false" />
+    <Property Name="VisitDate" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="IllnessHistory" Relationship="Self.FK_P_IllnessHistory" FromRole="PacientHasIllnesHistory" ToRole="IllnessHistory" />
     <NavigationProperty Name="Pacient" Relationship="Self.FKP_Pacient" FromRole="PacientHasIllnesHistory" ToRole="Pacient" />
   </EntityType>
@@ -94,7 +93,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="PacientHasIllnesHistory">
-        <PropertyRef Name="idIllnessHistory" />
+        <PropertyRef Name="idIllenssHistory" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -122,7 +121,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="MediCppEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="MediCppEntities3" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Doctor" EntityType="Self.Doctor" />
     <EntitySet Name="IllnessHistory" EntityType="Self.IllnessHistory" />
     <EntitySet Name="IllnessHistoryHasMedicines" EntityType="Self.IllnessHistoryHasMedicines" />

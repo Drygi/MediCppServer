@@ -14,17 +14,21 @@ namespace Server.Controllers
 {
     public class IllnessHistoriesController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         // GET: api/IllnessHistories
         [HttpGet]
         public IHttpActionResult GetIllnessHistories()
         {
-            return Json(db.IllnessHistory.ToList());
+            var lists = db.IllnessHistory.ToList();
+            if (lists.Count > 0)
+                return Json(lists);
+            else
+                return Json("Empty database");
         }
 
         // GET: api/IllnessHistories/5
-        [ResponseType(typeof(IllnessHistory)),HttpGet]
+        [ResponseType(typeof(IllnessHistory)), HttpGet]
         public IHttpActionResult GetIllnessHistory(int id)
         {
             IllnessHistory illnessHistory = db.IllnessHistory.Find(id);
@@ -37,7 +41,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/IllnessHistories/5
-        [ResponseType(typeof(void)),HttpPut]
+        [ResponseType(typeof(void)), HttpPut]
         public IHttpActionResult PutIllnessHistory(int id, IllnessHistory illnessHistory)
         {
             if (!ModelState.IsValid)
@@ -72,10 +76,10 @@ namespace Server.Controllers
         }
 
         // POST: api/IllnessHistories
-        [ResponseType(typeof(IllnessHistory)),HttpPost]
+        [ResponseType(typeof(IllnessHistory)), HttpPost]
         public IHttpActionResult PostIllnessHistory(IllnessHistory illnessHistory)
         {
-           
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -103,11 +107,11 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         // DELETE: api/IllnessHistories/5
-        [ResponseType(typeof(IllnessHistory)),HttpDelete]
+        [ResponseType(typeof(IllnessHistory)), HttpDelete]
         public IHttpActionResult DeleteIllnessHistory(int id)
         {
             IllnessHistory illnessHistory = db.IllnessHistory.Find(id);
@@ -138,7 +142,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         protected override void Dispose(bool disposing)

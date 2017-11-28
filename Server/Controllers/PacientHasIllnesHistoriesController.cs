@@ -14,30 +14,42 @@ namespace Server.Controllers
 {
     public class PacientHasIllnesHistoriesController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         // GET: api/PacientHasIllnesHistories
         [HttpGet]
         public IHttpActionResult GetPacientHasIllnesHistories()
         {
-            return Json(db.PacientHasIllnesHistory.ToList());
+            var lists = db.PacientHasIllnesHistory.ToList();
+
+            if (lists.Count > 0)
+                return Json(lists);
+            else
+                return Json("Empty database");
         }
 
         // GET: api/PacientHasIllnesHistories/5
-        [ResponseType(typeof(PacientHasIllnesHistory)),HttpGet]
+        [ResponseType(typeof(PacientHasIllnesHistory)), HttpGet]
         public IHttpActionResult GetPacientHasIllnesHistory(int id)
         {
-            PacientHasIllnesHistory pacientHasIllnesHistory = db.PacientHasIllnesHistory.Find(id);
-            if (pacientHasIllnesHistory == null)
+            var illnesHistories = (from hist
+                                   in db.PacientHasIllnesHistory
+                                   where hist.idPacient == id
+                                   select hist).ToList();
+
+
+
+        
+            if (illnesHistories == null)
             {
-                return NotFound();
+                return Json("Empty database");
             }
 
-            return Json(pacientHasIllnesHistory);
+            return Json(illnesHistories);
         }
 
         // PUT: api/PacientHasIllnesHistories/5
-        [ResponseType(typeof(void)),HttpPut]
+        [ResponseType(typeof(void)), HttpPut]
         public IHttpActionResult PutPacientHasIllnesHistory(int id, PacientHasIllnesHistory pacientHasIllnesHistory)
         {
             if (!ModelState.IsValid)
@@ -72,20 +84,17 @@ namespace Server.Controllers
         }
 
         // POST: api/PacientHasIllnesHistories
-        [ResponseType(typeof(PacientHasIllnesHistory)),HttpPost]
+        [ResponseType(typeof(PacientHasIllnesHistory)), HttpPost]
         public IHttpActionResult PostPacientHasIllnesHistory(PacientHasIllnesHistory pacientHasIllnesHistory)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
-            pacientHasIllnesHistory = new PacientHasIllnesHistory();
-
-            pacientHasIllnesHistory.idIllnessHistory = 1;
-            pacientHasIllnesHistory.idPacient = 1;
 
             pacientHasIllnesHistory.Pacient = db.Pacient.Find(pacientHasIllnesHistory.idPacient);
-            pacientHasIllnesHistory.IllnessHistory = db.IllnessHistory.Find(pacientHasIllnesHistory.idIllnessHistory);
+            pacientHasIllnesHistory.IllnessHistory = db.IllnessHistory.Find(pacientHasIllnesHistory.idIllenssHistory);
+            pacientHasIllnesHistory.VisitDate = DateTime.Now;
 
             db.PacientHasIllnesHistory.Add(pacientHasIllnesHistory);
 
@@ -110,7 +119,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         // DELETE: api/PacientHasIllnesHistories/5
@@ -145,7 +154,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         protected override void Dispose(bool disposing)

@@ -14,30 +14,37 @@ namespace Server.Controllers
 {
     public class MedicinesController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         // GET: api/Medicines
         [HttpGet]
         public IHttpActionResult GetMedicines()
         {
-            return Json(db.Medicine.ToList());
+            var lists = db.Medicine.ToList();
+
+            if (lists.Count > 0)
+                return Json(lists);
+            else
+                return Json("Empty database");
+
+
         }
 
         // GET: api/Medicines/5
-        [ResponseType(typeof(Medicine)),HttpGet]
+        [ResponseType(typeof(Medicine)), HttpGet]
         public IHttpActionResult GetMedicine(int id)
         {
             Medicine medicine = db.Medicine.Find(id);
             if (medicine == null)
             {
-                return NotFound();
+                return Json("Empty database");
             }
 
             return Json(medicine);
         }
 
         // PUT: api/Medicines/5
-        [ResponseType(typeof(void)),HttpPut]
+        [ResponseType(typeof(void)), HttpPut]
         public IHttpActionResult PutMedicine(int id, Medicine medicine)
         {
             if (!ModelState.IsValid)
@@ -72,7 +79,7 @@ namespace Server.Controllers
         }
 
         // POST: api/Medicines
-        [ResponseType(typeof(Medicine)),HttpPost]
+        [ResponseType(typeof(Medicine)), HttpPost]
         public IHttpActionResult PostMedicine(Medicine medicine)
         {
             if (!ModelState.IsValid)
@@ -101,11 +108,11 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         // DELETE: api/Medicines/5
-        [ResponseType(typeof(Medicine)),HttpDelete]
+        [ResponseType(typeof(Medicine)), HttpDelete]
         public IHttpActionResult DeleteMedicine(int id)
         {
             Medicine medicine = db.Medicine.Find(id);
@@ -136,7 +143,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         protected override void Dispose(bool disposing)

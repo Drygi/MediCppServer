@@ -5,13 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Http;
 
 namespace Server.Controllers
 {
     public class AuthorizeController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         //[HttpGet]
         //public IHttpActionResult Authorize()
@@ -24,7 +26,7 @@ namespace Server.Controllers
         // POST: api/Authorize
         [HttpPost]
         public IHttpActionResult Authorize(Authorize authorize)
-        { 
+        {
             var dec = GlobalHelper.DecryptRSA(authorize).Split('%');
             if (dec == null)
                 return NotFound();
@@ -36,7 +38,9 @@ namespace Server.Controllers
             var DFDB = (from d in db.Doctor where d.PESEL.ToString() == dr.PESEL select d).SingleOrDefault();
 
             if (DFDB != null && DFDB.CipherData.Trim() == authorize.cipherData.Trim())
-                return Json(GlobalHelper.EncryptTextAES("Authorized", "123abc"));
+
+                return Json(MyAES.EncryptStringToBytes(DFDB.Id.ToString()));
+
             else
                 return NotFound();
         }

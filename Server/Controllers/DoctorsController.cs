@@ -14,20 +14,20 @@ namespace Server.Controllers
 {
     public class DoctorsController : ApiController
     {
-        private MediCppEntities2 db = new MediCppEntities2();
+        private MediCppEntities3 db = new MediCppEntities3();
 
         // GET: api/Doctors
         [HttpGet]
         public IHttpActionResult GetDoctors()
         {
             if (db.Doctor.Count() < 1)
-                return NotFound();
+                return Json("Empty database");
             else
                 return Json(db.Doctor.ToList());
         }
 
         // GET: api/Doctors/5
-        [ResponseType(typeof(Doctor)),HttpGet]
+        [ResponseType(typeof(Doctor)), HttpGet]
         public IHttpActionResult GetDoctor(int id)
         {
             Doctor doctor = db.Doctor.Find(id);
@@ -40,7 +40,7 @@ namespace Server.Controllers
         }
 
         // PUT: api/Doctors/5
-        [ResponseType(typeof(void)),HttpPut]
+        [ResponseType(typeof(void)), HttpPut]
         public IHttpActionResult PutDoctor(int id, Doctor doctor)
         {
             if (!ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace Server.Controllers
         }
 
         // POST: api/Doctors
-        [ResponseType(typeof(Doctor)),HttpPost]
+        [ResponseType(typeof(Doctor)), HttpPost]
         public IHttpActionResult PostDoctor(Doctor doctor)
         {
             if (!ModelState.IsValid)
@@ -106,19 +106,20 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         // DELETE: api/Doctors/5
-        [ResponseType(typeof(Doctor)),HttpDelete]
+        [ResponseType(typeof(Doctor)), HttpDelete]
         public IHttpActionResult DeleteDoctor(int id)
         {
+            //usunac pacjentow od doktora   
             Doctor doctor = db.Doctor.Find(id);
             if (doctor == null)
             {
                 return NotFound();
             }
-
+            ///usuwanie doktorow nie dziala, ponieważ ma on przypisanych pacjentow.
             db.Doctor.Remove(doctor);
             try
             {
@@ -141,7 +142,7 @@ namespace Server.Controllers
                 }
                 throw raise;
             }
-            return Ok();
+            return Json("200OK");
         }
 
         protected override void Dispose(bool disposing)

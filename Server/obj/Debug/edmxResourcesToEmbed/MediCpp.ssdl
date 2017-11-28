@@ -16,14 +16,12 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar(max)" Nullable="false" />
-    <Property Name="BeginDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="IllnessHistoryHasMedicines">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idIllnessHistory" Type="int" Nullable="false" />
     <Property Name="idMedicine" Type="int" Nullable="false" />
   </EntityType>
@@ -48,9 +46,10 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idPacient" Type="int" Nullable="false" />
     <Property Name="idIllenssHistory" Type="int" Nullable="false" />
+    <Property Name="VisitDate" Type="date" Nullable="false" />
   </EntityType>
   <Association Name="FK_IllnessHistory">
     <End Role="IllnessHistory" Type="Self.IllnessHistory" Multiplicity="1" />
